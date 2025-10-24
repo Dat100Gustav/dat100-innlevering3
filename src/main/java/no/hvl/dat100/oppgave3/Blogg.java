@@ -5,46 +5,78 @@ import no.hvl.dat100.oppgave1.*;
 
 public class Blogg {
 
-	// TODO: objektvariable 
+	private Innlegg[] innleggTabell;
+
+    private int nesteLedig = 0;
 
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		innleggTabell = new Innlegg[20];
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		innleggTabell = new Innlegg[lengde];
 	}
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+		int antall = 0;
+
+        for (Innlegg innlegg : innleggTabell){
+            if (innlegg != null){
+                antall++;
+            }
+        }
+
+        return antall;
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
-
+        return innleggTabell;
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
+        int indeks = -1;
 
-		throw new UnsupportedOperationException(TODO.method());
+		for (int i = 0; i < innleggTabell.length; i++){
+            if (innleggTabell[i] != null){
+                if (innleggTabell[i].erLik(innlegg)){
+                    indeks = i;
+                }
+            }
+        }
+
+        return indeks;
 	}
 
 	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
+		return (finnInnlegg(innlegg) != -1);
 	}
 
 	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
-
+		return getAntall() != innleggTabell.length;
 	}
 	
 	public boolean leggTil(Innlegg innlegg) {
+        boolean lagtTil = false;
 
-		throw new UnsupportedOperationException(TODO.method());
+        if (ledigPlass() && !finnes(innlegg)){
+            innleggTabell[nesteLedig] = innlegg;
+            nesteLedig++;
+            lagtTil = true;
+        }
+
+        return lagtTil;
 	}
 	
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		String resultatStr = getAntall() + "\n";
+
+        for (Innlegg innlegg : innleggTabell){
+            if (innlegg != null){
+                resultatStr += innlegg.toString();
+            }
+        }
+
+        return resultatStr;
 	}
 
 	// valgfrie oppgaver nedenfor
